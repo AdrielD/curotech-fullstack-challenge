@@ -11,17 +11,23 @@ const UserInventoryCreate = (): ReactElement | null => {
 
   const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios.post(`/api/user/${userId}/inventory/`, {
-      name: item?.name,
-      price: item?.price,
-      availableQty: item?.availableQty,
-    }).then(() => {
-      alert('Item created!');
-      setItem(emptyItem);
-    })
-    .catch((error) => {
-      alert(error.response.data.message);
-    });
+
+    if (item?.name !== '' || item?.price > 0 || item?.availableQty > 0) {
+
+      axios.post(`/api/user/${userId}/inventory/`, {
+        name: item?.name,
+        price: item?.price,
+        availableQty: item?.availableQty,
+      }).then(() => {
+        alert('Item created!');
+        setItem(emptyItem);
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+    } else {
+      alert('Please fill all fields');
+    }
   }
 
   return (

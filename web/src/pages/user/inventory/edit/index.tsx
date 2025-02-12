@@ -22,16 +22,22 @@ const UserInventoryEdit = (): ReactElement | null => {
 
   const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios.put(`/api/user/${userId}/inventory/${itemId}`, {
-      name: item?.name,
-      price: item?.price,
-      availableQty: item?.availableQty,
-    }).then(() => {
-      alert('Item updated!');
-    })
-    .catch((error) => {
-      alert(error.response.data.message);
-    });
+
+    if (item?.name !== '' || item?.price > 0 || item?.availableQty > 0) {
+      axios.put(`/api/user/${userId}/inventory/${itemId}`, {
+        name: item?.name,
+        price: item?.price,
+        availableQty: item?.availableQty,
+      }).then(() => {
+        alert('Item updated!');
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+    }
+    else {
+      alert('Please fill all fields');
+    }
   }
 
   if (!item) return null;
