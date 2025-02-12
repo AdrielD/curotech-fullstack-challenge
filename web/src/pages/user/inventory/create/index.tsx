@@ -1,11 +1,12 @@
-import { useState,ReactElement } from "react";
+import { useState,ReactElement, useContext } from "react";
 import { NavLink } from "react-router";
 import axios from "axios";
 import { Item } from "../../../../models/item";
+import { UserContext } from "../../../../contexts/user";
 
 const UserInventoryCreate = (): ReactElement | null => {
   const emptyItem = { name: '', price: 0, availableQty: 0 }
-  const userId = 1;
+  const userId = useContext(UserContext).user?.id;
   const [item, setItem] = useState<Omit<Item, 'id'>>(emptyItem);
 
   const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,6 +18,9 @@ const UserInventoryCreate = (): ReactElement | null => {
     }).then(() => {
       alert('Item created!');
       setItem(emptyItem);
+    })
+    .catch((error) => {
+      alert(error.response.data.message);
     });
   }
 

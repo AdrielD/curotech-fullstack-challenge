@@ -1,12 +1,13 @@
-import { useEffect, useState,ReactElement } from "react";
+import { useEffect, useState,ReactElement, useContext } from "react";
 import { NavLink, useParams } from "react-router";
 import axios from "axios";
 import { Item } from "../../../../models/item";
+import { UserContext } from "../../../../contexts/user";
 
 const UserInventoryEdit = (): ReactElement | null => {
   let { itemId } = useParams();
 
-  const userId = 1;
+  const userId = useContext(UserContext).user?.id;
   const [item, setItem] = useState<Item>();
 
   useEffect(() => {
@@ -14,6 +15,9 @@ const UserInventoryEdit = (): ReactElement | null => {
       .then((json) => {
         setItem(json.data);
       })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
   }, []);
 
   const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,6 +28,9 @@ const UserInventoryEdit = (): ReactElement | null => {
       availableQty: item?.availableQty,
     }).then(() => {
       alert('Item updated!');
+    })
+    .catch((error) => {
+      alert(error.response.data.message);
     });
   }
 
