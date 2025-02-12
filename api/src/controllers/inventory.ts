@@ -9,6 +9,12 @@ const inventoryController = (db: PrismaClient) => {
     const allItems = await db.item.findMany({ where: { ownerId: Number(userId) } })
     res.json(allItems);
   });
+
+  router.get('/user/:user_id/inventory/:item_id', async (req, res) => {
+    const { user_id: userId, item_id: itemId } = req.params;
+    const item = await db.item.findUnique({ where: { id: Number(itemId), ownerId: Number(userId) } })
+    res.json(item);
+  });
   
   router.post('/user/:user_id/inventory', async (req, res) => {
     const { user_id: userId } = req.params;
