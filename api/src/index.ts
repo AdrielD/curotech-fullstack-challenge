@@ -45,5 +45,5 @@ app.use((err: any, req: any, res: any, next: any) => {
 });
 
 app.listen(port, () => {
-  console.log(`Started Curotech server in http://localhost:${port}`)
+  console.log(`Started Curotech api server in http://localhost:${port}`)
 });
