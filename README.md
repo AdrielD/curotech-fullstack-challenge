@@ -20,3 +20,7 @@ Once DB is set, run:
 Now log into http://localhost:3000
 and click in Login (doesnt matter what you type,
 we are just faking a login page and user saved state)
+
+PS: at the docker-compose.yml, I had web, api and postgres setup,
+but got some weird issue where data was coming from the DB
+(it shows it the network tab), but doesn't render in the page

@@ -10,6 +10,38 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    # networks:
+    #   - app-network
+
+#   api:
+#     build:
+#       context: .
+#       dockerfile: api/Dockerfile
+#     container_name: api
+#     environment:
+#       DATABASE_URL: postgres://curotech:curotech@postgres:5432/curotech
+#     ports:
+#       - '4000:4000'
+#     depends_on:
+#       - postgres
+#     networks:
+#       - app-network
+
+#   web:
+#     build:
+#       context: .
+#       dockerfile: web/Dockerfile
+#     container_name: web
+#     ports:
+#       - '3000:3000'
+#     depends_on:
+#       - api
+#     networks:
+#       - app-network
+
+# networks:
+#   app-network:
+#     driver: bridge
 
 volumes:
   postgres_data:
